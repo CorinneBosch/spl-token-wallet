@@ -87,9 +87,9 @@ export default function DepositDialog({
     );
   }
   const displaySolAddress = publicKey.equals(owner) || isAssociatedToken;
-//  const depositAddressStr = displaySolAddress
-//    ? owner.toBase58()
-//    : publicKey.toBase58();
+  const depositAddressStr = displaySolAddress;
+  //    ? owner.toBase58()
+  //    : publicKey.toBase58();
   return (
     <DialogForm open={open} onClose={onClose} maxWidth="sm" fullWidth>
       <DialogTitle>

@@ -1,0 +1,54 @@
+***************
+*** 112,119 ****
+                  This address can only be used to receive{' '}
+                  {tokenSymbol ?? abbreviateAddress(mint)}. Do not send SOL to
+                  this address.
+-                 <br />
+-                 <b style={{ color: 'red' }}>WARNING</b>: You are using a deprecated account type. Please migrate your tokens. Ideally, create a new wallet. If you send to this address from a poorly implemented wallet, you may burn tokens.
+                </DialogContentText>
+              ) : (
+                <DialogContentText>
+--- 112,117 ----
+                  This address can only be used to receive{' '}
+                  {tokenSymbol ?? abbreviateAddress(mint)}. Do not send SOL to
+                  this address.
+                </DialogContentText>
+              ) : (
+                <DialogContentText>
+***************
+*** 133,145 ****
+              <DialogContentText variant="body2">
+                <Link
+                  href={
+-                   `https://solscan.io/account/${depositAddressStr}` +
+-                   urlSuffix
+                  }
+                  target="_blank"
+                  rel="noopener"
+                >
+-                 View on Solscan
+                </Link>
+              </DialogContentText>
+            </>
+--- 131,151 ----
+              <DialogContentText variant="body2">
+                <Link
+                  href={
++                   `https://explorer.solana.com/account/${publicKey.toBase58()}` + urlSuffix
+                  }
+                  target="_blank"
+                  rel="noopener"
+                >
++                 View on Solana Explorer{' '}
++               </Link>
++               <Link
++                 href={
++                   `https://solscan.io/account/${publicKey.toBase58()}` + urlSuffix
++                 }
++                 target="_blank"
++                 rel="noopener"
++               >
++                 or Solscan
+                </Link>
+              </DialogContentText>
+            </>

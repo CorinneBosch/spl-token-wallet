@@ -107,7 +107,7 @@ function SeedWordsForm({ mnemonicAndSeed, goForward }) {
     const url = window.URL.createObjectURL(new Blob([mnemonic]));
     const link = document.createElement('a');
     link.href = url;
-    link.setAttribute('download', 'Merkle.bak');
+    link.setAttribute('download', 'sollet.bak');
     document.body.appendChild(link);
     link.click();
   }
@@ -117,7 +117,7 @@ function SeedWordsForm({ mnemonicAndSeed, goForward }) {
       <Card>
         <CardContent>
           <Typography variant="h5" gutterBottom>
-            Welcome to Merkle.Space
+            Create New Wallet
           </Typography>
           <Typography paragraph>
             Create a new wallet to hold Solana and SPL tokens.
@@ -143,12 +143,6 @@ function SeedWordsForm({ mnemonicAndSeed, goForward }) {
             Your private keys are only stored on your current computer or device.
             You will need these words to restore your wallet if your browser's
             storage is cleared or your device is damaged or lost.
-          </Typography>
-          <Typography paragraph>
-            <strong>We do not store or even see your twenty four words</strong>, the cryptographic seed
-            created with them is stored as a cookie in your browser and nowhere
-            else, so if you clear the history it will disappear and <strong>if you don't 
-            keep the twenty four words safe, nobody will be able to help you recover your coins</strong>.
           </Typography>
           <Typography paragraph>
             By default, sollet will use <code>m/44'/501'/0'/0'</code> as the
@@ -180,7 +174,7 @@ function SeedWordsForm({ mnemonicAndSeed, goForward }) {
             downloadMnemonic(mnemonicAndSeed?.mnemonic);
             setDownloaded(true);
           }}>
-            Download Seed Phrase (Required)
+            Download Backup Mnemonic File (Required)
           </Button>
           </Typography>
         </CardContent>

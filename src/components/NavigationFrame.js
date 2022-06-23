@@ -71,6 +71,10 @@ const useStyles = makeStyles((theme) => ({
     height: 16,
     width: 16,
   },
+  media: {
+    height: 30,
+    paddingRight: 10,
+  },
 }));
 
 export default function NavigationFrame({ children }) {
@@ -80,8 +84,14 @@ export default function NavigationFrame({ children }) {
     <>
       <AppBar position="static">
         <Toolbar>
+          <img
+            src="/images/BCB-white.png"
+            className={classes.media}
+            alt="logo"
+          />
           <Typography variant="h6" className={classes.title} component="h1">
-            {isExtensionWidth ? 'Your coins' : 'Your keys, your coins'}
+            BLINC wallet
+            {/* {isExtensionWidth ? 'Your coins' : 'Your keys, your coins'} */}
           </Typography>
           <NavigationButtons />
         </Toolbar>

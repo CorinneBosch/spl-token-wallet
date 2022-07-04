@@ -45,6 +45,7 @@ import { useConnectedWallets } from '../utils/connected-wallets';
 import { usePage } from '../utils/page';
 import { MonetizationOn, OpenInNew } from '@material-ui/icons';
 import AddCustomClusterDialog from './AddCustomClusterDialog';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 const useStyles = makeStyles((theme) => ({
   content: {
@@ -80,6 +81,8 @@ const useStyles = makeStyles((theme) => ({
 export default function NavigationFrame({ children }) {
   const classes = useStyles();
   const isExtensionWidth = useIsExtensionWidth();
+  // const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
+
   return (
     <>
       <AppBar position="static">
@@ -93,6 +96,7 @@ export default function NavigationFrame({ children }) {
             BLINC wallet
             {/* {isExtensionWidth ? 'Your coins' : 'Your keys, your coins'} */}
           </Typography>
+          {/* <h3>{`${prefersDarkMode ? 'DARK' : 'LIGHT'}`}</h3> */}
           <NavigationButtons />
         </Toolbar>
       </AppBar>

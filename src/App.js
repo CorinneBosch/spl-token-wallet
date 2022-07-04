@@ -1,11 +1,11 @@
-import React, { Suspense } from 'react';
+import React, { Suspense, useState, useEffect } from 'react';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import {
   ThemeProvider,
   unstable_createMuiStrictModeTheme as createMuiTheme,
 } from '@material-ui/core/styles';
-import blue from '@material-ui/core/colors/blue';
+// import blue from '@material-ui/core/colors/blue';
 import NavigationFrame from './components/NavigationFrame';
 import { ConnectionProvider } from './utils/connection';
 import WalletPage from './pages/WalletPage';
@@ -19,23 +19,62 @@ import LoginPage from './pages/LoginPage';
 import ConnectionsPage from './pages/ConnectionsPage';
 import { isExtension } from './utils/utils';
 import { PageProvider, usePage } from './utils/page';
+import Switch from '@material-ui/core/Switch';
+import IconButton from '@material-ui/core/IconButton';
+import Brightness3Icon from '@material-ui/icons/Brightness3';
+import Brightness7Icon from '@material-ui/icons/Brightness7';
 
 export default function App() {
   // TODO: add toggle for dark mode
+  // const [darkState, setDarkState] = useState(false);
+  // const wizardColor = !darkState ? 'dark' : 'light';
+
+  // const prefersDarkMode = useMediaQuery(
+  //   `(prefers-color-scheme: ${wizardColor})`,
+  // );
   const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
+
+  const [darkState, setDarkState] = useState(false);
+  const colorMode = darkState ? 'dark' : 'light';
+  const icon = darkState ? <Brightness3Icon /> : <Brightness7Icon />;
+
+  useEffect(() => {
+    function magicColor() {
+      if (prefersDarkMode) {
+        setDarkState(true);
+      } else {
+        setDarkState(false);
+      }
+    }
+
+    magicColor();
+
+    window.addEventListener('color', magicColor);
+
+    return () => window.removeEventListener('color', magicColor);
+  });
+
   const theme = React.useMemo(
     () =>
       createMuiTheme({
         palette: {
-          type: prefersDarkMode ? 'dark' : 'light',
-          primary: blue,
+          type: colorMode,
+          // type: prefersDarkMode ? 'dark' : 'light',
+          primary: {
+            main: '#285EEC',
+          },
         },
+
         // TODO consolidate popup dimensions
         ext: '450',
       }),
-    [prefersDarkMode],
+    [colorMode],
+    // [prefersDarkMode],
   );
 
+  const handleThemeChange = () => {
+    darkState ? setDarkState(false) : setDarkState(true);
+  };
   // Disallow rendering inside an iframe to prevent clickjacking.
   if (window.self !== window.top) {
     return null;
@@ -60,6 +99,29 @@ export default function App() {
   return (
     <Suspense fallback={<LoadingIndicator />}>
       <ThemeProvider theme={theme}>
+        <div>
+          <span>{`colorMode: ${colorMode}`}</span>
+          <br />
+          <span>{`prefersDarkMode: ${prefersDarkMode}`}</span>
+          <br />
+          <span>{`darkState: ${darkState}`}</span>
+          <br />
+          <Switch
+            checked={darkState}
+            color="primary"
+            onChange={handleThemeChange}
+          />
+          <br />
+          <IconButton
+            edge="end"
+            color="inherit"
+            aria-label="mode"
+            // onChange={handleThemeChange}
+            onClick={handleThemeChange}
+          >
+            {icon}
+          </IconButton>
+        </div>
         <CssBaseline />
 
         <ConnectionProvider>

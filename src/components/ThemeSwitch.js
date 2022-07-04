@@ -1,32 +1,19 @@
-// import Fab from '@material-ui/core/Fab';
-// import { Brightness5Rounded, Brightness4Rounded } from '@material-ui/icons';
+import React from 'react';
+import { createMuiTheme } from '@material-ui/core/styles';
 
-// export default function ThemeIndicator(isDark) {
-//   const displayAlt = isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode';
-//   if (isDark) {
-//     return (
-//       <Fab size="small" aria-label={displayAlt}>
-//         here <Brightness4Rounded />
-//       </Fab>
-//     );
-//   } else {
-//     return (
-//       <Fab size="small" aria-label={displayAlt}>
-//         <Brightness5Rounded />
-//       </Fab>
-//     );
-//   }
-// }
+export const styles =
 
-import useMediaQuery from '@material-ui/core/useMediaQuery';
 
-export default function GetPreferredColorScheme() {
-  const matches = useMediaQuery('(prefers-color-scheme: dark)');
+const theme = createMuiTheme({
+      palette: {
+        type: colorMode,
+        primary: {
+          main: '#285EEC',
+        },
+      },
+      ext: '450',
+    },
+  // [prefersDarkMode],
+);
 
-  return (
-    <div>
-      <span>{`lightmode: ${matches ? 'dark' : 'light'}`}</span>;<br />
-      <span>{`darkmode: ${matches}`}</span>;
-    </div>
-  );
-}
+export default theme;

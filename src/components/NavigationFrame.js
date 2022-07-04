@@ -45,7 +45,8 @@ import { useConnectedWallets } from '../utils/connected-wallets';
 import { usePage } from '../utils/page';
 import { MonetizationOn, OpenInNew } from '@material-ui/icons';
 import AddCustomClusterDialog from './AddCustomClusterDialog';
-import useMediaQuery from '@material-ui/core/useMediaQuery';
+import Brightness4Icon from '@material-ui/icons/Brightness4';
+import Brightness5Icon from '@material-ui/icons/Brightness5';
 
 const useStyles = makeStyles((theme) => ({
   content: {
@@ -81,7 +82,12 @@ const useStyles = makeStyles((theme) => ({
 export default function NavigationFrame({ children }) {
   const classes = useStyles();
   const isExtensionWidth = useIsExtensionWidth();
-  // const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
+  const [darkState, setDarkState] = useState(true);
+  const icon = darkState ? <Brightness4Icon /> : <Brightness5Icon />;
+
+  const handleThemeChange = () => {
+    darkState ? setDarkState(false) : setDarkState(true);
+  };
 
   return (
     <>
@@ -96,7 +102,15 @@ export default function NavigationFrame({ children }) {
             BLINC wallet
             {/* {isExtensionWidth ? 'Your coins' : 'Your keys, your coins'} */}
           </Typography>
-          {/* <h3>{`${prefersDarkMode ? 'DARK' : 'LIGHT'}`}</h3> */}
+          {/* <span>{`themeState: ${theme.palette.type}`}</span> */}
+          <IconButton
+            edge="end"
+            color="inherit"
+            aria-label="mode"
+            onClick={handleThemeChange}
+          >
+            {icon}
+          </IconButton>
           <NavigationButtons />
         </Toolbar>
       </AppBar>

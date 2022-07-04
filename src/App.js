@@ -1,6 +1,5 @@
-import React, { Suspense, useState, useEffect } from 'react';
+import React, { Suspense, useState } from 'react';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import useMediaQuery from '@material-ui/core/useMediaQuery';
 import {
   ThemeProvider,
   unstable_createMuiStrictModeTheme as createMuiTheme,
@@ -19,47 +18,22 @@ import LoginPage from './pages/LoginPage';
 import ConnectionsPage from './pages/ConnectionsPage';
 import { isExtension } from './utils/utils';
 import { PageProvider, usePage } from './utils/page';
-import Switch from '@material-ui/core/Switch';
 import IconButton from '@material-ui/core/IconButton';
-import Brightness3Icon from '@material-ui/icons/Brightness3';
-import Brightness7Icon from '@material-ui/icons/Brightness7';
+import Brightness4Icon from '@material-ui/icons/Brightness4';
+import Brightness5Icon from '@material-ui/icons/Brightness5';
 
 export default function App() {
   // TODO: add toggle for dark mode
-  // const [darkState, setDarkState] = useState(false);
-  // const wizardColor = !darkState ? 'dark' : 'light';
-
-  // const prefersDarkMode = useMediaQuery(
-  //   `(prefers-color-scheme: ${wizardColor})`,
-  // );
-  const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
-
-  const [darkState, setDarkState] = useState(false);
+  const [darkState, setDarkState] = useState(true);
   const colorMode = darkState ? 'dark' : 'light';
-  const icon = darkState ? <Brightness3Icon /> : <Brightness7Icon />;
 
-  useEffect(() => {
-    function magicColor() {
-      if (prefersDarkMode) {
-        setDarkState(true);
-      } else {
-        setDarkState(false);
-      }
-    }
-
-    magicColor();
-
-    window.addEventListener('color', magicColor);
-
-    return () => window.removeEventListener('color', magicColor);
-  });
+  const icon = darkState ? <Brightness4Icon /> : <Brightness5Icon />;
 
   const theme = React.useMemo(
     () =>
       createMuiTheme({
         palette: {
           type: colorMode,
-          // type: prefersDarkMode ? 'dark' : 'light',
           primary: {
             main: '#285EEC',
           },
@@ -69,12 +43,12 @@ export default function App() {
         ext: '450',
       }),
     [colorMode],
-    // [prefersDarkMode],
   );
 
   const handleThemeChange = () => {
     darkState ? setDarkState(false) : setDarkState(true);
   };
+
   // Disallow rendering inside an iframe to prevent clickjacking.
   if (window.self !== window.top) {
     return null;
@@ -100,23 +74,13 @@ export default function App() {
     <Suspense fallback={<LoadingIndicator />}>
       <ThemeProvider theme={theme}>
         <div>
-          <span>{`colorMode: ${colorMode}`}</span>
-          <br />
-          <span>{`prefersDarkMode: ${prefersDarkMode}`}</span>
-          <br />
           <span>{`darkState: ${darkState}`}</span>
           <br />
-          <Switch
-            checked={darkState}
-            color="primary"
-            onChange={handleThemeChange}
-          />
-          <br />
+          <span>{`themeState: ${theme.palette.type}`}</span>
           <IconButton
             edge="end"
             color="inherit"
             aria-label="mode"
-            // onChange={handleThemeChange}
             onClick={handleThemeChange}
           >
             {icon}
